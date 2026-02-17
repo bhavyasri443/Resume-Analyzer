@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+<div class="card">
+
+<h2>Create Account</h2>
+
+<input id="u" placeholder="Username">
+<input id="p" type="password" placeholder="Password">
+
+<button onclick="signup()">Sign up</button>
+
+<p id="msg"></p>
+
+</div>
+</div>
+
+<script>
+async function signup(){
+
+    const f = new FormData();
+    f.append("username",u.value);
+    f.append("password",p.value);
+
+    const r = await fetch("/signup",{method:"POST",body:f});
+    const d = await r.json();
+
+    if(d.success)
+        window.location="/login-page";
+    else
+        msg.innerText=d.message;
+}
+</script>
+
+</body>
+</html>

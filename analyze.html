@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+<div class="card">
+
+<h2>Resume Analyzer</h2>
+
+<input type="file" id="resume">
+
+<textarea id="jd" rows="4" placeholder="Paste job description (optional)"></textarea>
+
+<button onclick="analyze()">Analyze</button>
+<button onclick="downloadReport()">Download PDF Report</button>
+
+<div class="result" id="out"></div>
+
+</div>
+</div>
+
+<script>
+async function analyze(){
+
+    const role = localStorage.getItem("track");
+
+    if(!resume.files.length){
+        alert("Please upload a resume PDF");
+        return;
+    }
+
+    const f = new FormData();
+    f.append("track", role);
+    f.append("resume", resume.files[0]);
+    f.append("job_description", jd.value);
+
+    const r = await fetch("/analyze", {
+        method: "POST",
+        body: f
+    });
+
+    const d = await r.json();
+
+    let t = "";
+
+    t += "Resume Score : " + d.resume_score + " / 100\n\n";
+
+    t += "Missing Skills & Why they matter:\n";
+
+    d.skill_gap_explanation.forEach(item => {
+        t += "• " + item.skill + " – " + item.reason + "\n";
+    });
+
+    t += "\nSuggestions:\n";
+
+    d.resume_suggestions.forEach(s => {
+        t += "• " + s + "\n";
+    });
+
+    if(d.job_match_score !== null){
+        t += "\nJob description match : " + d.job_match_score + " %\n";
+    }
+
+    out.innerText = t;
+}
+
+
+async function downloadReport(){
+
+    const role = localStorage.getItem("track");
+
+    if(!resume.files.length){
+        alert("Please upload a resume first");
+        return;
+    }
+
+    const f = new FormData();
+    f.append("track", role);
+    f.append("resume", resume.files[0]);
+    f.append("job_description", jd.value);
+
+    const r = await fetch("/download-report", {
+        method: "POST",
+        body: f
+    });
+
+    const blob = await r.blob();
+
+    const url = window.URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "resume_report.pdf";
+    a.click();
+
+    window.URL.revokeObjectURL(url);
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+<div class="card">
+
+<h2 style="text-align:center">AI Resume Analyzer</h2>
+
+<p style="text-align:center; opacity:0.8">
+Analyze your resume, find missing skills and get role-based suggestions
+</p>
+
+<br>
+
+<div class="choice-buttons" style="flex-direction:column">
+    <button onclick="goSignup()">Sign up</button>
+    <button onclick="goLogin()">Login</button>
+</div>
+
+</div>
+</div>
+
+<script>
+function goSignup(){
+    window.location = "/signup-page";
+}
+
+function goLogin(){
+    window.location = "/login-page";
+}
+</script>
+
+</body>
+</html>
