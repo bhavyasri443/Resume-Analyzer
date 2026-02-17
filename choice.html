@@ -1,21 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="/static/style.css">
+<meta charset="UTF-8">
+<title>Select Role</title>
+<link rel="stylesheet" href="style.css">
 
 <style>
 .role-grid{
     display:grid;
     grid-template-columns: repeat(2, 1fr);
     gap:12px;
-    max-height:360px;
-    overflow-y:auto;
-    padding-right:5px;
-}
-
-.role-grid button{
-    font-size:14px;
-    padding:10px;
 }
 </style>
 
@@ -32,37 +26,9 @@
 <button onclick="go('frontend')">Frontend Developer</button>
 <button onclick="go('backend')">Backend Developer</button>
 <button onclick="go('fullstack')">Full Stack Developer</button>
-<button onclick="go('mobile')">Mobile App Developer</button>
-
-<button onclick="go('data')">Data Scientist</button>
-<button onclick="go('data_engineer')">Data Engineer</button>
-
 <button onclick="go('ai')">AI / ML Engineer</button>
-<button onclick="go('mlops')">MLOps Engineer</button>
-
-<button onclick="go('devops')">DevOps Engineer</button>
+<button onclick="go('data')">Data Scientist</button>
 <button onclick="go('cloud')">Cloud Engineer</button>
-<button onclick="go('sre')">Site Reliability Engineer</button>
-
-<button onclick="go('cybersecurity')">Cyber Security Engineer</button>
-<button onclick="go('blockchain')">Blockchain Developer</button>
-
-<button onclick="go('game')">Game Developer</button>
-<button onclick="go('arvr')">AR / VR Developer</button>
-
-<button onclick="go('embedded')">Embedded Engineer</button>
-<button onclick="go('iot')">IoT Engineer</button>
-
-<button onclick="go('robotics')">Robotics Engineer</button>
-
-<button onclick="go('qa')">QA Engineer</button>
-<button onclick="go('automation')">Automation Test Engineer</button>
-
-<button onclick="go('uiux')">UI / UX Designer</button>
-<button onclick="go('product')">Product Manager</button>
-<button onclick="go('business_analyst')">Business Analyst</button>
-
-<button onclick="go('bioinformatics')">Bioinformatics Engineer</button>
 
 </div>
 
@@ -71,8 +37,10 @@
 
 <script>
 function go(role){
+
     localStorage.setItem("track", role);
-    window.location = "/analyze-page";
+
+    window.location.href = "analyze.html";
 }
 </script>
 
