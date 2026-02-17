@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="/static/style.css">
+<meta charset="UTF-8">
+<title>Login</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -21,19 +23,22 @@
 </div>
 
 <script>
-async function login(){
+function login(){
 
-    const f = new FormData();
-    f.append("username",u.value);
-    f.append("password",p.value);
+    const savedUser = localStorage.getItem("username");
+    const savedPass = localStorage.getItem("password");
 
-    const r = await fetch("/login",{method:"POST",body:f});
-    const d = await r.json();
+    if(u.value === savedUser && p.value === savedPass){
 
-    if(d.success)
-        window.location="/choice-page";
-    else
-        msg.innerText=d.message;
+        msg.innerText = "Login successful";
+
+        setTimeout(()=>{
+            window.location.href = "choice.html";
+        },1000);
+
+    }else{
+        msg.innerText = "Invalid username or password";
+    }
 }
 </script>
 
