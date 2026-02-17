@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="/static/style.css">
+<meta charset="UTF-8">
+<title>Signup</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -21,19 +23,21 @@
 </div>
 
 <script>
-async function signup(){
+function signup(){
 
-    const f = new FormData();
-    f.append("username",u.value);
-    f.append("password",p.value);
+    if(u.value === "" || p.value === ""){
+        msg.innerText = "Please enter username and password";
+        return;
+    }
 
-    const r = await fetch("/signup",{method:"POST",body:f});
-    const d = await r.json();
+    localStorage.setItem("username", u.value);
+    localStorage.setItem("password", p.value);
 
-    if(d.success)
-        window.location="/login-page";
-    else
-        msg.innerText=d.message;
+    msg.innerText = "Signup successful";
+
+    setTimeout(()=>{
+        window.location.href = "login.html";
+    },1000);
 }
 </script>
 
